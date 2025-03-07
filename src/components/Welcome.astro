@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Header from "../assets/Header.astro";
 import Footer from "../assets/Footer.astro";
+
 interface Props {
     title?: string;
     subtitle?: string;
@@ -13,33 +14,46 @@ const {
 } = Astro.props;
 ---
 
-<div class="welcome-container">
-    <div class="welcome-content">
-        <h1>{title}</h1>
-        <p class="subtitle">{subtitle}</p>
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">{title}</h1>
+        <p class="lead text-muted">{subtitle}</p>
         
-        <div class="features">
-            <div class="feature-card">
-                <span class="icon">🚀</span>
-                <h3>Fast Performance</h3>
-                <p>Built with speed and efficiency in mind</p>
+        <div class="row g-4 mt-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <span class="fs-1 mb-3 d-block">🚀</span>
+                        <h3 class="h5">Fast Performance</h3>
+                        <p class="card-text text-muted">Built with speed and efficiency in mind</p>
+                    </div>
+                </div>
             </div>
-            <div class="feature-card">
-                <span class="icon">🛠️</span>
-                <h3>Easy to Use</h3>
-                <p>Simple and intuitive interface</p>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <span class="fs-1 mb-3 d-block">🛠️</span>
+                        <h3 class="h5">Easy to Use</h3>
+                        <p class="card-text text-muted">Simple and intuitive interface</p>
+                    </div>
+                </div>
             </div>
-            <div class="feature-card">
-                <span class="icon">🎨</span>
-                <h3>Beautiful Design</h3>
-                <p>Modern and responsive layout</p>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <span class="fs-1 mb-3 d-block">🎨</span>
+                        <h3 class="h5">Beautiful Design</h3>
+                        <p class="card-text text-muted">Modern and responsive layout</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="cta-buttons">
-            <a href="/get-started" class="btn primary">Get Started</a>
-            <a href="/learn-more" class="btn secondary">Learn More</a>
-			<Footer/>
+        <div class="mt-5">
+            <a href="/get-started" class="btn btn-primary me-3">Get Started</a>
+            <a href="/learn-more" class="btn btn-outline-secondary">Learn More</a>
         </div>
+        
+        <Footer />
     </div>
 </div>
