@@ -1,59 +1,455 @@
 ---
-import "../styles/global.css";
-import Header from "../assets/Header.astro";
-import Footer from "../assets/Footer.astro";
+// Import components
+import LanguageSwitch from '../components/LanguageSwitch.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-interface Props {
-    title?: string;
-    subtitle?: string;
-}
+// Define language and translation options
+const { lang = 'en' } = Astro.params;
+const isEnglish = lang === 'en';
 
-const { 
-    title = "Said x Dimitri ",
-    subtitle = "Discover amazing content and features"
-} = Astro.props;
+// Translations
+const translations = {
+  en: {
+    siteName: "Plato",
+    nav: {
+      home: "Home",
+      services: "Services",
+      about: "About",
+      contact: "Contact"
+    },
+    hero: {
+      title: "Start your new digital experience with Plato",
+      subtitle: "We are a team of talented designers making websites with Astro",
+      cta: "Get Started"
+    },
+    about: {
+      title: "About",
+      subtitle: "Learn more about our company",
+      details: "More details about us",
+      text1: "We are dedicated to providing high-quality web design services that help our clients establish a strong online presence. Our talented team brings together creativity and technical expertise to deliver websites that not only look great but also perform exceptionally well.",
+      text2: "With years of experience in the industry, we understand what it takes to create a successful website. We focus on responsive design, user experience, and optimization to ensure your website reaches its full potential."
+    },
+    whyUs: {
+      title: "Why Us",
+      reasons: [
+        {
+          number: "01",
+          title: "Expert Team",
+          description: "Our team consists of professionals with years of experience in web design and development."
+        },
+        {
+          number: "02",
+          title: "Custom Solutions",
+          description: "We create tailored solutions that meet the specific needs of your business."
+        },
+        {
+          number: "03",
+          title: "Modern Technologies",
+          description: "We stay updated with the latest trends and technologies to ensure your website remains relevant."
+        },
+        {
+          number: "04",
+          title: "Responsive Design",
+          description: "All our websites are fully responsive, ensuring they work perfectly on all devices."
+        },
+        {
+          number: "05",
+          title: "Ongoing Support",
+          description: "We provide continuous support and maintenance to keep your website running smoothly."
+        },
+        {
+          number: "06",
+          title: "Affordable Pricing",
+          description: "We offer competitive pricing without compromising on quality or service."
+        }
+      ]
+    },
+    cta: {
+      title: "Ready to Start Your Project?",
+      text: "Contact us today to discuss your web design needs and discover how we can help your business grow online.",
+      button: "Contact us"
+    },
+    services: {
+      title: "Services",
+      subtitle: "Services we offer",
+      items: [
+        {
+          icon: "bi-briefcase",
+          title: "Web Design",
+          description: "Professional web design services tailored to your business needs."
+        },
+        {
+          icon: "bi-card-checklist",
+          title: "Web Development",
+          description: "Custom development solutions to bring your ideas to life."
+        }
+      ]
+    },
+    contact: {
+      title: "Contact",
+      subtitle: "Get in touch with us",
+      address: "A108 Adam Street, New York, NY 535022",
+      phone: "+1 000 000 000",
+      email: "info@example.com",
+      form: {
+        name: "Your Name",
+        email: "Your Email",
+        subject: "Subject",
+        message: "Message",
+        send: "Send Message"
+      }
+    }
+  },
+  fr: {
+    siteName: "Plato",
+    nav: {
+      home: "Accueil",
+      services: "Services",
+      about: "À propos",
+      contact: "Contact"
+    },
+    hero: {
+      title: "Commencez votre nouvelle expérience numérique avec Plato",
+      subtitle: "Nous sommes une équipe de designers talentueux créant des sites web avec Astro",
+      cta: "Commencer"
+    },
+    about: {
+      title: "À propos",
+      subtitle: "En savoir plus sur notre entreprise",
+      details: "Plus de détails sur nous",
+      text1: "Nous nous consacrons à fournir des services de conception web de haute qualité qui aident nos clients à établir une forte présence en ligne. Notre équipe talentueuse allie créativité et expertise technique pour livrer des sites web qui non seulement ont une belle apparence, mais fonctionnent également exceptionnellement bien.",
+      text2: "Avec des années d'expérience dans l'industrie, nous comprenons ce qu'il faut pour créer un site web réussi. Nous nous concentrons sur la conception responsive, l'expérience utilisateur et l'optimisation pour garantir que votre site web atteigne son plein potentiel."
+    },
+    whyUs: {
+      title: "Pourquoi Nous",
+      reasons: [
+        {
+          number: "01",
+          title: "Équipe experte",
+          description: "Notre équipe est composée de professionnels avec des années d'expérience en conception et développement web."
+        },
+        {
+          number: "02",
+          title: "Solutions personnalisées",
+          description: "Nous créons des solutions sur mesure qui répondent aux besoins spécifiques de votre entreprise."
+        },
+        {
+          number: "03",
+          title: "Technologies modernes",
+          description: "Nous restons à jour avec les dernières tendances et technologies pour garantir que votre site web reste pertinent."
+        },
+        {
+          number: "04",
+          title: "Conception responsive",
+          description: "Tous nos sites web sont entièrement responsives, assurant qu'ils fonctionnent parfaitement sur tous les appareils."
+        },
+        {
+          number: "05",
+          title: "Support continu",
+          description: "Nous fournissons un support et une maintenance continus pour que votre site web fonctionne sans problème."
+        },
+        {
+          number: "06",
+          title: "Prix abordables",
+          description: "Nous offrons des prix compétitifs sans compromettre la qualité ou le service."
+        }
+      ]
+    },
+    cta: {
+      title: "Prêt à démarrer votre projet?",
+      text: "Contactez-nous aujourd'hui pour discuter de vos besoins en conception web et découvrir comment nous pouvons aider votre entreprise à se développer en ligne.",
+      button: "Contactez-nous"
+    },
+    services: {
+      title: "Services",
+      subtitle: "Services que nous offrons",
+      items: [
+        {
+          icon: "bi-briefcase",
+          title: "Conception Web",
+          description: "Services de conception web professionnels adaptés aux besoins de votre entreprise."
+        },
+        {
+          icon: "bi-card-checklist",
+          title: "Développement Web",
+          description: "Solutions de développement personnalisées pour donner vie à vos idées."
+        }
+      ]
+    },
+    contact: {
+      title: "Contact",
+      subtitle: "Entrez en contact avec nous",
+      address: "A108 Adam Street, New York, NY 535022",
+      phone: "+1 000 000 000",
+      email: "info@example.com",
+      form: {
+        name: "Votre Nom",
+        email: "Votre Email",
+        subject: "Sujet",
+        message: "Message",
+        send: "Envoyer le Message"
+      }
+    }
+  }
+};
+
+// Choose language
+const t = isEnglish ? translations.en : translations.fr;
 ---
 
-<div class="container py-5">
-    <div class="text-center mb-5">
-        <h1 class="display-4">{title}</h1>
-        <p class="lead text-muted">{subtitle}</p>
-        
-        <div class="row g-4 mt-4">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <span class="fs-1 mb-3 d-block">🚀</span>
-                        <h3 class="h5">Fast Performance</h3>
-                        <p class="card-text text-muted">Built with speed and efficiency in mind</p>
-                    </div>
-                </div>
+<!DOCTYPE html>
+<html lang={isEnglish ? "en" : "fr"}>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>{t.siteName} - {t.nav.home}</title>
+  <meta name="description" content="Professional web design and development services">
+  <meta name="keywords" content="web design, development, responsive, modern">
+
+   
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/assets/img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="/assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="index-page">
+
+  <!-- Header -->
+  <Header siteName={t.siteName} navItems={t.nav} />
+
+  <!-- Language Switcher -->
+  <LanguageSwitch currentLang={isEnglish ? "en" : "fr"} />
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+      <img src="/assets/img/hero-bg.jpg" alt="" data-aos="fade-in">
+
+      <div class="container text-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <h2>{t.hero.title}</h2>
+            <p>{t.hero.subtitle}</p>
+            <a href="#about" class="btn-get-started">{t.hero.cta}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>{t.about.title}</h2>
+        <p>{t.about.subtitle}</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <h3>{t.about.details}</h3>
+            <img src="/assets/img/about.jpg" class="img-fluid rounded-4 mb-4" alt="">
+            <p>{t.about.text1}</p>
+            <p>{t.about.text2}</p>
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
+            <div class="content ps-0 ps-lg-5">
+              <ul>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Responsive web design that looks great on all devices</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Modern development practices using the latest technologies</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Search engine optimization to help your website rank higher</span></li>
+              </ul>
+              <p>
+                We pride ourselves on delivering high-quality websites that not only look great but also perform
+                exceptionally well. Our focus on user experience ensures that visitors to your site have a seamless
+                experience that encourages them to engage with your brand.
+              </p>
+
+              <div class="position-relative mt-4">
+                <img src="/assets/img/about-2.jpg" class="img-fluid rounded-4" alt="">
+              </div>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <span class="fs-1 mb-3 d-block">🛠️</span>
-                        <h3 class="h5">Easy to Use</h3>
-                        <p class="card-text text-muted">Simple and intuitive interface</p>
-                    </div>
-                </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   
+    <!-- Why Us Section -->
+    <section id="why-us" class="why-us section text-center">
+      <h2>{t.whyUs.title}</h2>
+      <div class="container">
+        <div class="row no-gutters">
+          {t.whyUs.reasons.map((reason, index) => (
+            <div class="col-lg-4 col-md-6 card" data-aos="fade-up" data-aos-delay={100 * (index + 1)}>
+              <span>{reason.number}</span>
+              <h4>{reason.title}</h4>
+              <p>{reason.description}</p>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <span class="fs-1 mb-3 d-block">🎨</span>
-                        <h3 class="h5">Beautiful Design</h3>
-                        <p class="card-text text-muted">Modern and responsive layout</p>
-                    </div>
-                </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section dark-background">
+      <img src="/assets/img/cta-bg.jpg" alt="">
+
+      <div class="container">
+        <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-xl-10">
+            <div class="text-center">
+              <h3>{t.cta.title}</h3>
+              <p>{t.cta.text}</p>
+              <a class="cta-btn" href="#contact">{t.cta.button}</a>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <span class="description-title">{t.services.title}</span>
+        <h2>{t.services.title}</h2>
+        <p>{t.services.subtitle}</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+          {t.services.items.map((service, index) => (
+            <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay={100 * (index + 1)}>
+              <div class="service-item d-flex">
+                <div class="icon flex-shrink-0"><i class={`bi ${service.icon}`}></i></div>
+                <div>
+                  <h4 class="title"><a href="#" class="stretched-link">{service.title}</a></h4>
+                  <p class="description">{service.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <span class="description-title">{t.contact.title}</span>
+        <h2>{t.contact.title}</h2>
+        <p>{t.contact.subtitle}</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="info-wrap" data-aos="fade-up" data-aos-delay="200">
+          <div class="row gy-5">
+            <div class="col-lg-4">
+              <div class="info-item d-flex align-items-center">
+                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <div>
+                  <h3>{isEnglish ? "Address" : "Adresse"}</h3>
+                  <p>{t.contact.address}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="info-item d-flex align-items-center">
+                <i class="bi bi-telephone flex-shrink-0"></i>
+                <div>
+                  <h3>{isEnglish ? "Call Us" : "Appelez-Nous"}</h3>
+                  <p>{t.contact.phone}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="info-item d-flex align-items-center">
+                <i class="bi bi-envelope flex-shrink-0"></i>
+                <div>
+                  <h3>{isEnglish ? "Email Us" : "Envoyez-Nous un Email"}</h3>
+                  <p>{t.contact.email}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="mt-5">
-            <a href="/get-started" class="btn btn-primary me-3">Get Started</a>
-            <a href="/learn-more" class="btn btn-outline-secondary">Learn More</a>
-        </div>
-        
-        <Footer />
-    </div>
-</div>
+        <form action="/api/contact" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="300">
+          <div class="row gy-4">
+            <div class="col-md-6">
+              <input type="text" name="name" class="form-control" placeholder={t.contact.form.name} required>
+            </div>
+
+            <div class="col-md-6">
+              <input type="email" class="form-control" name="email" placeholder={t.contact.form.email} required>
+            </div>
+
+            <div class="col-md-12">
+              <input type="text" class="form-control" name="subject" placeholder={t.contact.form.subject} required>
+            </div>
+
+            <div class="col-md-12">
+              <textarea class="form-control" name="message" rows="6" placeholder={t.contact.form.message} required></textarea>
+            </div>
+
+            <div class="col-md-12 text-center">
+              <div class="loading">{isEnglish ? "Loading" : "Chargement"}</div>
+              <div class="error-message"></div>
+              <div class="sent-message">{isEnglish ? "Your message has been sent. Thank you!" : "Votre message a été envoyé. Merci!"}</div>
+
+              <button type="submit">{t.contact.form.send}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <Footer siteName={t.siteName} translation={t} isEnglish={isEnglish} />
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+   
+  
+    <!-- Vendor JS Files -->
+    <script is:inline src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script is:inline src="/assets/vendor/aos/aos.js"></script>
+    <script is:inline src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script is:inline src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script is:inline src="/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script is:inline src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  
+    <!-- Main JS File -->
+    <script is:inline src="/assets/js/main.js"></script>
+
+</body>
+</html>
