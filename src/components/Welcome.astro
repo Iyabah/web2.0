@@ -1,8 +1,9 @@
 ---
 // Import components
-import LanguageSwitch from '../components/LanguageSwitch.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import LanguageSwitch from '../components/LanguageSwitch.astro';
+
 
 // Define language and translation options
 const { lang = 'en' } = Astro.params;
@@ -11,7 +12,7 @@ const isEnglish = lang === 'en';
 // Translations
 const translations = {
   en: {
-    siteName: "IYA",
+    siteName: "Plato",
     nav: {
       home: "Home",
       services: "Services",
@@ -74,7 +75,7 @@ const translations = {
       title: "Services",
       subtitle: "Services we offer",
       items: [
-      {
+        {
           icon: "bi-paint-bucket",
           title: "Web Design",
           description: "Professional web design services tailored to your business needs."
@@ -102,7 +103,7 @@ const translations = {
     }
   },
   cy: {
-    siteName: "IYA",
+    siteName: "Plato",
     nav: {
       home: "Hafan",
       services: "Gwasanaethau",
@@ -235,11 +236,12 @@ const t = isEnglish ? translations.en : translations.cy;
 <body class="index-page">
 
   <!-- Header -->
-  <Header siteName={t.siteName}
-   navItems={t.nav} />
-
-  <!-- Language Switcher -->
-  <LanguageSwitch currentLang={isEnglish ? "en" : "cy"} />
+  <Header siteName={t.siteName} 
+    navItems={t.nav}
+    currentLang={isEnglish ? "en" : "cy"} />
+  
+    <!-- Language Switcher -->
+    <LanguageSwitch currentLang={isEnglish ? "en" : "fr"} />
 
   <main class="main">
 
@@ -263,7 +265,6 @@ const t = isEnglish ? translations.en : translations.cy;
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <span class="description-title">{t.about.title}</span>
-
         <h2>{t.about.title}</h2>
         <p>{t.about.subtitle}</p>
       </div>
@@ -272,16 +273,18 @@ const t = isEnglish ? translations.en : translations.cy;
         <div class="row gy-4">
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <h3>{t.about.details}</h3>
-            <img src="/assets/img/dim3.jpg" class="img-fluid rounded-4 mb-4" alt="">
+             <img src="/assets/img/dim3.jpg" class="img-fluid rounded-4 mb-4" alt="">
             <p>{t.about.text1}</p>
             <p>{t.about.text2}</p>
           </div>
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
             <div class="content ps-0 ps-lg-5">
               <!--ul>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Responsive web design that looks great on all devices</span></li>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Modern development practices using the latest technologies</span></li>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Search engine optimization to help your website rank higher</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Bespoke colour matching with an endless palette of luxurious tones</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Smooth, seamless finishes that rival brand-new installations </span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Long-lasting, hard-wearing coatings designed to stand the test of time</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Minimal disruption to your home – clean, quiet, and efficient</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>A conscious, sustainable alternative to wasteful renovations</span></li>
               </ul-->
               <p>
                 From elegant matt finishes to high-gloss shine, we tailor every detail to your vision, 
@@ -289,7 +292,6 @@ const t = isEnglish ? translations.en : translations.cy;
               </p>
               <p>This is home transformation, redefined – where luxury meets sustainability, and your dream interior becomes reality.
               </p>
-
 
               <div class="position-relative mt-4">
                 <img src="/assets/img/dim1.jpg" class="img-fluid rounded-4" alt="">
@@ -301,9 +303,9 @@ const t = isEnglish ? translations.en : translations.cy;
     </section>
    
     <!-- Why Us Section -->
-    <section id="why-us" class="why-us section text-center ">
+    <section id="why-us" class="why-us section text-center">
       <div class="container section-title" data-aos="fade-up">
-        <span class="description-title">{t.whyUs.title}</span>
+      <span class="description-title">{t.whyUs.title}</span>
       <h2>{t.whyUs.title}</h2>
       <div class="container">
         <div class="row no-gutters">
@@ -405,7 +407,7 @@ const t = isEnglish ? translations.en : translations.cy;
           </div>
         </div>
 
-        <form action="/api/contact/" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="300">
+        <form action="/api/contact" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="300">
           <div class="row gy-4">
             <div class="col-md-6">
               <input type="text" name="name" class="form-control" placeholder={t.contact.form.name} required>
